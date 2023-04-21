@@ -1,14 +1,31 @@
+//cd order/api && goctl api go -api order.api -dir .
+
 type (
-	OrderReq {
+	GetOrderReq {
 		Id string `path:"id"`
 	}
 
-	OrderReply {
+	GetOrderReply {
+		Id   string `json:"id"`
+		Name string `json:"name"`
+	}
+
+	AddOrderReq {
+		Name string `json:"name"`
+	}
+
+	AddOrderReply {
 		Id   string `json:"id"`
 		Name string `json:"name"`
 	}
 )
+
 service order {
 	@handler getOrder
-	get /api/order/get/:id (OrderReq) returns (OrderReply)
+	get /api/order/get/:id (GetOrderReq) returns (GetOrderReply)
+}
+
+service order {
+	@handler addOrder
+	post /api/addOrder (AddOrderReq) returns (AddOrderReply)
 }
